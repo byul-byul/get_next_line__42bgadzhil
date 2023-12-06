@@ -6,9 +6,18 @@
 /*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:48:17 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/06 17:40:35 by byulbyul         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:57:20 by byulbyul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// gnl_handler() returns:
+//  1 - line with separator has been formed;
+//  0 - line without separator has been formed;
+// -1 - line has not been formed.
+//
+// check_buff() returns:
+//  N - index of first non '\0' char in buff;
+// -1 - buff empty.
 
 #include "get_next_line.h"
 
@@ -37,13 +46,7 @@ static int	upd_prms(char **line, char buff[BUFF_SIZE], int beg_i, int sep_i)
 
 	i = -1;
 	tmp_line = *line;
-	if (sep_i == -1)
-	{
-		*line = ft_strjoin(*line, buff);
-		sep_i = BUFF_SIZE;
-	}
-	else
-		*line = ft_strljoin(*line, &(buff[beg_i]), ft_strlen(*line), sep_i - beg_i);
+	*line = ft_strljoin(*line, &(buff[beg_i]), ft_strlen(*line), sep_i - beg_i);
 	safe_free(tmp_line);
 	if (!(*line))
 		return (0);
@@ -51,10 +54,6 @@ static int	upd_prms(char **line, char buff[BUFF_SIZE], int beg_i, int sep_i)
 		buff[i] = '\0';
 	return (1);
 }
-
-// -1 - buff is empty.
-// -1 - separator not found.
-// -1 - an error occured; 0 - should read() more; 1 - line is ready to be returned.
 
 static int	gnl_handler(char **line, char buff[BUFF_SIZE])
 {

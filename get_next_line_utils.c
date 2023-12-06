@@ -6,7 +6,7 @@
 /*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:00:30 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/06 17:00:34 by byulbyul         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:00:34 by byulbyul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,33 +36,19 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-char	*ft_strljoin(char const *s1, char const *s2, size_t s1_len, size_t s2_len)
+char	*ft_strljoin(char const *s1, char const *s2, size_t s1_l, size_t s2_l)
 {
 	char	*result;
 
 	if (!s1 || !s2)
 		return (NULL);
-	result = malloc(s1_len + s2_len + 1);
+	result = malloc(s1_l + s2_l + 1);
 	if (result)
 	{
-		ft_memcpy(result, s1, s1_len);
-		ft_memcpy(result + s1_len, s2, s2_len + 1);
+		ft_memcpy(result, s1, s1_l);
+		ft_memcpy(result + s1_l, s2, s2_l + 1);
 	}
-	result[s1_len + s2_len + 1] = '\0';
-	return (result);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*result;
-	size_t	s1_len;
-	size_t	s2_len;
-
-	if (!s1 || !s2)
-		return (NULL);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	result = ft_strljoin(s1, s2, s1_len, s2_len);
+	result[s1_l + s2_l + 1] = '\0';
 	return (result);
 }
 
