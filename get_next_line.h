@@ -6,7 +6,7 @@
 /*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:59:32 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/06 17:57:57 by byulbyul         ###   ########.fr       */
+/*   Updated: 2023/12/06 20:01:15 by byulbyul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUFF_SIZE	20
-# define SEPARATOR	'\n'
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE	42
+# endif
+
+# define SEPARATOR		'\n'
 
 char	*get_next_line(int fd);
 char	*ft_strljoin(char const *s1, char const *s2, size_t s1_l, size_t s2_l);
