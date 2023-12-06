@@ -6,7 +6,7 @@
 /*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:00:30 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/06 21:53:08 by byulbyul         ###   ########.fr       */
+/*   Updated: 2023/12/06 22:54:26 by byulbyul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_strljoin(char const *s1, char const *s2, size_t s1_l, size_t s2_l)
 	return (result);
 }
 
-size_t	ft_findcharl(const char *str, int c, size_t len)
+size_t	ft_findlchar(const char *str, int c, size_t len)
 {
 	size_t	i;
 

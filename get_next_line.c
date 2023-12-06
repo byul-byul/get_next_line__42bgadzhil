@@ -6,18 +6,22 @@
 /*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:48:17 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/06 21:56:54 by byulbyul         ###   ########.fr       */
+/*   Updated: 2023/12/06 23:03:20 by byulbyul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // gnl_handler() returns:
-//  1 - line with separator has been formed;
+//  1 - line with separator at the end has been formed;
 //  0 - line without separator has been formed;
 // -1 - line has not been formed.
 //
+// formline() returns:
+//  1 - line has been formed;
+//  0 - line has not been formed;
+//
 // checkbuff() returns:
 //  N - index of first non '\0' char in buff;
-// -1 - buff empty.
+// -1 - buff is empty.
 
 #include "get_next_line.h"
 
@@ -63,7 +67,7 @@ static int	gnl_handler(char **line, char buff[BUFFER_SIZE])
 
 	gnl_handler_result = 1;
 	begining_i = checkbuff(buff);
-	separator_i = ft_findcharl(buff, SEPARATOR, BUFFER_SIZE);
+	separator_i = ft_findlchar(buff, SEPARATOR, BUFFER_SIZE);
 	if ((*line)[0] == '\0' && begining_i == -1)
 		return (-1);
 	if ((*line)[0] != '\0' && begining_i == -1)
