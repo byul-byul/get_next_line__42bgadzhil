@@ -6,7 +6,7 @@
 /*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:48:17 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/06 23:03:20 by byulbyul         ###   ########.fr       */
+/*   Updated: 2023/12/08 22:29:14 by byulbyul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*get_next_line(int fd)
 	int			gnl_handler_result;
 	char		*line;
 
-	line = malloc(1);
+	line = (char *)malloc(sizeof(char) * 1);
 	if (!line || BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
 		return (safefree(line));
 	line[0] = '\0';
