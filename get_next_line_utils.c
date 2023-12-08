@@ -6,7 +6,7 @@
 /*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:00:30 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/08 22:48:39 by byulbyul         ###   ########.fr       */
+/*   Updated: 2023/12/08 23:14:17 by byulbyul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ char	*ft_strljoin(char const *s1, char const *s2, size_t s1_l, size_t s2_l)
 
 	if (!s1 || !s2)
 		return (NULL);
-	result = (char *)malloc(sizeof(char) * (s1_l + s2_l + 1));
+	result = (char *)malloc(sizeof(char) * (s1_l + s2_l + 2));
 	if (result)
 	{
 		ft_memcpy(result, s1, s1_l);
 		ft_memcpy(result + s1_l, s2, s2_l + 1);
-		result[s1_l + s2_l] = '\0';
+		result[s1_l + s2_l + 1] = '\0';
 	}
 	return (result);
 }
