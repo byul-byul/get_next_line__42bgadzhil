@@ -6,7 +6,7 @@
 /*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:59:32 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/08 23:14:11 by byulbyul         ###   ########.fr       */
+/*   Updated: 2023/12/09 13:37:17 by byulbyul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 size_t	ft_strlen(const char *s);
 size_t	ft_findlchar(const char *str, int c, size_t len);
+char	*safefree(char *str);
 
 #endif

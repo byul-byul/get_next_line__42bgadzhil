@@ -6,12 +6,12 @@
 /*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 16:48:17 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/08 22:29:14 by byulbyul         ###   ########.fr       */
+/*   Updated: 2023/12/09 13:46:26 by byulbyul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // gnl_handler() returns:
-//  1 - line with separator at the end has been formed;
+//  1 - line with separator at the end or last line has been formed;
 //  0 - line without separator has been formed;
 // -1 - line has not been formed.
 //
@@ -25,11 +25,13 @@
 
 #include "get_next_line.h"
 
-static char	*safefree(char *str)
+static void	cleanlbuff(char buff[BUFFER_SIZE], int len)
 {
-	if (str)
-		free(str);
-	return (NULL);
+	int	i;
+
+	i = -1;
+	while (++i <= len)
+		buff[i] = '\0';
 }
 
 static int	checkbuff(char buff[BUFFER_SIZE])
@@ -45,17 +47,13 @@ static int	checkbuff(char buff[BUFFER_SIZE])
 
 static int	formline(char **line, char buff[BUFFER_SIZE], int beg_i, int sep_i)
 {
-	int		i;
 	char	*tmp_line;
 
-	i = -1;
 	tmp_line = *line;
 	*line = ft_strljoin(*line, &(buff[beg_i]), ft_strlen(*line), sep_i - beg_i);
 	safefree(tmp_line);
 	if (!(*line))
 		return (0);
-	while (++i <= sep_i)
-		buff[i] = '\0';
 	return (1);
 }
 
@@ -63,9 +61,9 @@ static int	gnl_handler(char **line, char buff[BUFFER_SIZE])
 {
 	int	begining_i;
 	int	separator_i;
-	int	gnl_handler_result;
+	int	result;
 
-	gnl_handler_result = 1;
+	result = 1;
 	begining_i = checkbuff(buff);
 	separator_i = ft_findlchar(buff, SEPARATOR, BUFFER_SIZE);
 	if ((*line)[0] == '\0' && begining_i == -1)
@@ -75,11 +73,13 @@ static int	gnl_handler(char **line, char buff[BUFFER_SIZE])
 	if (separator_i == -1)
 	{
 		separator_i = BUFFER_SIZE;
-		gnl_handler_result = 0;
+		result = 0;
 	}
-	if (!formline(line, buff, begining_i, separator_i))
-		gnl_handler_result = -1;
-	return (gnl_handler_result);
+	if (formline(line, buff, begining_i, separator_i))
+		cleanlbuff(buff, separator_i);
+	else
+		result = -1;
+	return (result);
 }
 
 char	*get_next_line(int fd)

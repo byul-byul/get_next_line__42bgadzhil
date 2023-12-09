@@ -6,7 +6,7 @@
 /*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 17:00:30 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/08 23:14:17 by byulbyul         ###   ########.fr       */
+/*   Updated: 2023/12/09 13:37:00 by byulbyul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,11 @@ size_t	ft_findlchar(const char *str, int c, size_t len)
 		if (str[i] == (char)c)
 			return (i);
 	return (-1);
+}
+
+char	*safefree(char *str)
+{
+	if (str)
+		free(str);
+	return (NULL);
 }
