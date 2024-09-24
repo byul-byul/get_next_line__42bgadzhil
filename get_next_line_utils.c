@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: byulbyul <byulbyul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/06 17:00:30 by byulbyul          #+#    #+#             */
-/*   Updated: 2023/12/09 13:37:00 by byulbyul         ###   ########.fr       */
+/*   Created: 2024/09/24 23:09:58 by bhajili           #+#    #+#             */
+/*   Updated: 2024/09/25 01:58:43 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
