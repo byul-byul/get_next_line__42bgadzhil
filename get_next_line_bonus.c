@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:49 by bhajili           #+#    #+#             */
-/*   Updated: 2024/09/25 02:13:20 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/09/25 04:11:19 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 //  N - index of first non '\0' char in buff;
 // -1 - buff is empty.
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static void	cleanlbuff(char *buff, int len)
 {
@@ -84,20 +84,22 @@ static int	gnl_handler(char **line, char *buff)
 
 char	*get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE];
+	static char	*buff[MAX_FD];
 	int			gnl_handler_result;
 	char		*line;
 
 	line = (char *)malloc(sizeof(char) * 1);
-	if (!line || BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
+	if (fd > 2 && !buff[fd])
+		buff[fd] = (char *)malloc(sizeof(char) * BUFFER_SIZE);
+	if (!line || BUFFER_SIZE <= 0 || fd < 0 || !buff[fd] || read(fd, 0, 0) < 0)
 		return (safefree(line));
 	line[0] = '\0';
 	while (1)
 	{
-		if (checkbuff(buff) == -1)
-			if (read(fd, buff, BUFFER_SIZE) < 0)
+		if (checkbuff(buff[fd]) == -1)
+			if (read(fd, buff[fd], BUFFER_SIZE) < 0)
 				return (safefree(line));
-		gnl_handler_result = gnl_handler(&line, buff);
+		gnl_handler_result = gnl_handler(&line, buff[fd]);
 		if (gnl_handler_result == -1)
 			return (safefree(line));
 		if (gnl_handler_result == 1)
