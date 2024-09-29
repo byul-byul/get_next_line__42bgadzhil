@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:49 by bhajili           #+#    #+#             */
-/*   Updated: 2024/09/25 04:11:19 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/09/29 12:27:01 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	formline(char **line, char *buff, int beg_i, int sep_i)
 
 	tmp_line = *line;
 	*line = ft_strljoin(*line, &(buff[beg_i]), ft_strlen(*line), sep_i - beg_i);
-	safefree(tmp_line);
+	safefree(tmp_line, buff);
 	if (!(*line))
 		return (0);
 	return (1);
@@ -88,20 +88,20 @@ char	*get_next_line(int fd)
 	int			gnl_handler_result;
 	char		*line;
 
-	line = (char *)malloc(sizeof(char) * 1);
-	if (fd > 2 && !buff[fd])
+	if (fd > 2 && !(buff[fd]))
 		buff[fd] = (char *)malloc(sizeof(char) * BUFFER_SIZE);
+	line = (char *)malloc(sizeof(char) * 1);
 	if (!line || BUFFER_SIZE <= 0 || fd < 0 || !buff[fd] || read(fd, 0, 0) < 0)
-		return (safefree(line));
+		return (safefree(line, buff[fd]));
 	line[0] = '\0';
 	while (1)
 	{
 		if (checkbuff(buff[fd]) == -1)
 			if (read(fd, buff[fd], BUFFER_SIZE) < 0)
-				return (safefree(line));
+				return (safefree(line, buff[fd]));
 		gnl_handler_result = gnl_handler(&line, buff[fd]);
 		if (gnl_handler_result == -1)
-			return (safefree(line));
+			return (safefree(line, buff[fd]));
 		if (gnl_handler_result == 1)
 			return (line);
 	}

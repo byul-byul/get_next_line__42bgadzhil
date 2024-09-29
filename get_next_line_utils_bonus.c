@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:58 by bhajili           #+#    #+#             */
-/*   Updated: 2024/09/25 01:58:43 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:44:11 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,11 @@ size_t	ft_findlchar(const char *str, int c, size_t len)
 	return (-1);
 }
 
-char	*safefree(char *str)
+char	*safefree(char *str, char *buff)
 {
 	if (str)
 		free(str);
+	if (buff)
+		free(buff);
 	return (NULL);
 }
