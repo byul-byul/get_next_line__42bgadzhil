@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:58 by bhajili           #+#    #+#             */
-/*   Updated: 2024/09/28 18:44:11 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/10/11 16:03:50 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ size_t	ft_findlchar(const char *str, int c, size_t len)
 	return (-1);
 }
 
-char	*safefree(char *str, char *buff)
+char	*safefree2(char *str, char *buff)
 {
 	if (str)
 		free(str);
