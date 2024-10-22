@@ -6,66 +6,93 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:58 by bhajili           #+#    #+#             */
-/*   Updated: 2024/09/25 01:58:43 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/10/21 16:32:04 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int	ft_charindex(int c, char *str)
+{
+	int	i;
+
+	i = -1;
+	if (str)
+		while (str[++i])
+			if (str[i] == c)
+				return (i);
+	return (-1);
+}
+
+char	*ft_freeif(char **str)
+{
+	if (str)
+	{
+		if (*str)
+			free(*str);
+		*str = NULL;
+	}
+	return (NULL);
+}
 
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
 	len = 0;
-	while (s[len])
-		len++;
+	if (s)
+		while (s[len])
+			len++;
 	return (len);
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t len)
 {
 	const char	*src_ptr;
-	char		*dest_ptr;
+	char		*dst_ptr;
 
-	if (dest == src)
-		return (dest);
+	if (dst == src)
+		return (dst);
 	src_ptr = src;
-	dest_ptr = dest;
-	while (n--)
-		*dest_ptr++ = *src_ptr++;
-	return (dest);
+	dst_ptr = dst;
+	while (len--)
+		*dst_ptr++ = *src_ptr++;
+	return (dst);
 }
 
-char	*ft_strljoin(char const *s1, char const *s2, size_t s1_l, size_t s2_l)
+char	*ft_strljoin(char const *s1, char const *s2, size_t len1, size_t len2)
 {
 	char	*result;
 
-	if (!s1 || !s2)
+	if (NULL == s1 && NULL == s2)
 		return (NULL);
-	result = (char *)malloc(sizeof(char) * (s1_l + s2_l + 2));
-	if (result)
+	if (NULL == s1)
 	{
-		ft_memcpy(result, s1, s1_l);
-		ft_memcpy(result + s1_l, s2, s2_l + 1);
-		result[s1_l + s2_l + 1] = '\0';
+		result = malloc(len2 + 1);
+		if (result)
+		{
+			ft_memcpy(result, s2, len2 + 1);
+			result[len2 + 1] = '\0';
+		}
+	}
+	else if (NULL == s2)
+	{
+		result = malloc(len1 + 1);
+		if (result)
+		{
+			ft_memcpy(result, s1, len1 + 1);
+			result[len1 + 1] = '\0';
+		}
+	}
+	else
+	{
+		result = malloc(len1 + len2 + 1);
+		if (result)
+		{
+			ft_memcpy(result, s1, len1);
+			ft_memcpy(result + len1, s2, len2 + 1);
+			result[len1 + len2 + 1] = '\0';
+		}
 	}
 	return (result);
-}
-
-size_t	ft_findlchar(const char *str, int c, size_t len)
-{
-	size_t	i;
-
-	i = -1;
-	while (++i < len)
-		if (str[i] == (char)c)
-			return (i);
-	return (-1);
-}
-
-char	*safefree(char *str)
-{
-	if (str)
-		free(str);
-	return (NULL);
 }
