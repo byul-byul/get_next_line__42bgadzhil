@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:38 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/18 16:07:39 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:13:22 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,18 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h> // DELETE
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE	10
 # endif
 
 # ifndef OPEN_MAX
-#  define OPEN_MAX 4096
+#  define OPEN_MAX		4096
 # endif
 
 # ifndef MAX_FD
-#  define MAX_FD 1
+#  define MAX_FD 		1
 # endif
 
 # define SEPARATOR		'\n'

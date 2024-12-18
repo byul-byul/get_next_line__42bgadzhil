@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:49 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/18 16:09:11 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:13:36 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char	*get_next_line(int fd)
 {
 	static t_buff	buff;
 
-	//if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0 )
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	if (NULL == buff.ptr)
@@ -102,20 +101,3 @@ char	*get_next_line(int fd)
 	}
 	return (form_next_line(fd, &(buff)));
 }
-
-//int main(void)
-//{
-//	//int fd = open("multiple_line_no_nl", O_RDONLY);
-//	//fd = 25;
-//	int fd = 1000;
-//	char *line;
-//	while (1)
-//	{
-//		line = get_next_line(fd);
-
-//		printf(":: %s\n", line);
-//		if (!line)
-//			break ;
-//		free(line);
-//	}
-//}
