@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:38 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/18 13:44:05 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 11:03:59 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
-char	*ft_substr(const char *str, unsigned int start, size_t len);
-char	*ft_strncpy(char *dest, const char *src, unsigned int n);
+//char	*ft_strchr_allocation(char *line, int len);
+//char	*ft_strchar_rev(char *line, int c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(const char *s1);
+//char	*ft_strjoin(char *line, char *buffer);
 char	*ft_strjoin(const char *s1, const char *s2);
-char	*ft_strchr(const char *s, int c);
+char	*ft_strchr(char *line, int c);
 
 #endif

@@ -3,112 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:58 by bhajili           #+#    #+#             */
-/*   Updated: 2024/11/23 21:43:26 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 13:50:54 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(char *str)
+size_t	ft_strlen(const char *s)
 {
-	int	i;
+	size_t	len;
 
-	i = 0;
-	if (!str || !str[i])
+	len = 0;
+	if (!s)
 		return (0);
-	while (str && str[i])
-	{
-		i++;
-	}
-	return (i);
+	while (s[len])
+		len++;
+	return (len);
 }
 
-char	*ft_strchr_allocation(char *line, int len)
+char	*ft_strchr(const char *s, int c)
 {
-	char	*line_a;
-	int		i;
+	if (s)
+		while (*s != (char)c)
+			if (!*s++)
+				return (NULL);
+	return ((char *)s);
+}
 
-	line_a = malloc(sizeof(char) * (ft_strlen(line) - len + 1));
-	if (!line_a)
+char	*ft_strncpy(char *dest, const char *src, unsigned int n)
+{
+	unsigned int	i;
+
+	i = -1;
+	if (!dest || !src)
 		return (NULL);
-	i = 0;
-	while (line[len])
-	{
-		line_a[i++] = line[len++];
-	}
-	line_a[i] = '\0';
-	return (line_a);
+	while (++i < n && src[i])
+		dest[i] = src[i];
+	while (i < n)
+		dest[i++] = '\0';
+	return (dest);
 }
 
-char	*ft_strchar_rev(char *line, int c)
+char	*ft_substr(const char *str, unsigned int start, size_t len)
 {
-	char	*clean_line;
-	int		i;
+	char	*res;
+	size_t	sublen;
 
-	i = 0;
-	while (line[i] != '\n' && line[i] != '\0')
-		i++;
-	if (c == '\n')
-		clean_line = malloc(sizeof(char) * (i + 2));
-	if (c == '\0')
-		clean_line = malloc(sizeof(char) * (i + 1));
-	if (!clean_line)
+	if (!str)
 		return (NULL);
-	if (line [i] == (char)c)
+	sublen = ft_strlen(str);
+	if (sublen <= start)
+		sublen = 0;
+	else
+		sublen -= start;
+	if (sublen > len)
+		sublen = len;
+	res = (char *)malloc(sizeof(char) * (sublen + 1));
+	if (res)
 	{
-		if ((char)c == '\n')
-			clean_line[++i] = '\0';
-		else
-			clean_line[i] = '\0';
-		while (--i >= 0)
-			clean_line[i] = line[i];
-		return (clean_line);
+		ft_strncpy(res, str + start, sublen);
+		res[sublen] = '\0';
 	}
-	return (NULL);
+	return (res);
 }
 
-char	*ft_strjoin(char *line, char *buffer)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	char	*line2;
 	int		i;
 	int		j;
+	int		s1_len;
+	int		s2_len;
+	char	*res;
 
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	res = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (!res)
+		return (NULL);
 	i = 0;
 	j = 0;
-	if (!line)
-	{
-		line = malloc(1);
-		if (!line)
-			return (NULL);
-		line [0] = '\0';
-	}
-	line2 = malloc(sizeof(char) * (ft_strlen(line) + ft_strlen(buffer) + 1));
-	if (!line2)
-		return (free(line), NULL);
-	while (line[i])
-	{
-		line2[i] = line[i];
-		i++;
-	}
-	while (buffer[j])
-		line2[i++] = buffer[j++];
-	free(line);
-	return (line2[i] = '\0', line2);
-}
-
-char	*ft_strchr(char *line, int c)
-{
-	int	i;
-
-	i = 0;
-	while (line && line[i])
-	{
-		if (line[i] == (char)c)
-			return (&line[i]);
-		i++;
-	}
-	return (NULL);
+	while (j < s1_len)
+		res[i++] = s1[j++];
+	j = 0;
+	while (j < s2_len)
+		res[i++] = s2[j++];
+	res[i] = '\0';
+	return (res);
 }

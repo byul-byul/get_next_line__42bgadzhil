@@ -3,74 +3,76 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:49 by bhajili           #+#    #+#             */
-/*   Updated: 2024/11/23 21:43:10 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 13:55:35 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ready_for_next(char *line)
+static void	clean_buff(char **buff)
 {
-	char	*next;
-	char	*ptr;
-	int		len;
+	size_t	sublen;
+	char	*cleaned;
+	char	*pos;
 
-	ptr = ft_strchr(line, '\n');
-	if (!ptr)
+	pos = ft_strchr(*buff, SEPARATOR);
+	if (!pos)
 	{
-		return (free(line), line = NULL, NULL);
+		free(*buff);
+		*buff = NULL;
+		return ;
 	}
+	sublen = pos - *buff + 1;
+	if ((*buff)[sublen] == '\0')
+	{
+		free(*buff);
+		*buff = NULL;
+		return ;
+	}
+	cleaned = ft_substr(*buff, sublen, ft_strlen(pos));
+	free (*buff);
+	*buff = cleaned;
+}
+
+static char	*form_next_line(char *buff)
+{
+	size_t	len;
+	char	*pos;
+
+	pos = ft_strchr(buff, SEPARATOR);
+	if (pos)
+		len = pos - buff + 1;
 	else
-		len = (ptr - line) + 1;
-	if (!line[len])
-		return (free(line), line = NULL, NULL);
-	next = ft_strchr_allocation(line, len);
-	free (line);
-	if (!next)
-		return (NULL);
-	return (next);
+		len = ft_strlen(buff);
+	return (ft_substr(buff, 0, len));
 }
 
-char	*clean_line(char *line)
+static char	*read_next_line(char *line, int fd)
 {
-	char	*clean_line;
-
-	if (!ft_strchr(line, '\n'))
-	{
-		clean_line = ft_strchar_rev(line, '\0');
-		if (!clean_line)
-			return (NULL);
-		return (clean_line);
-	}
-	clean_line = ft_strchar_rev(line, '\n');
-	if (!clean_line)
-		return (NULL);
-	return (clean_line);
-}
-
-char	*read_line(char *line, int fd)
-{
-	char	*buffer;
+	char	*buff;
+	char	*tmp;
 	int		read_bytes;
 
 	read_bytes = 1;
-	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buffer)
+	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buff)
 		return (free(line), line = NULL, NULL);
-	buffer[0] = '\0';
-	while (read_bytes > 0 && !ft_strchr(line, '\n'))
+	buff[0] = '\0';
+	while (read_bytes > 0 && !ft_strchr(line, SEPARATOR))
 	{
-		read_bytes = read(fd, buffer, BUFFER_SIZE);
+		read_bytes = read(fd, buff, BUFFER_SIZE);
 		if (read_bytes > 0)
 		{
-			buffer[read_bytes] = '\0';
-			line = ft_strjoin(line, buffer);
+			buff[read_bytes] = '\0';
+			tmp = line;
+			line = ft_strjoin(line, buff);
+			free(tmp);
 		}
 	}
-	free(buffer);
+	free(buff);
 	if (read_bytes < 0 || !line)
 		return (free(line), line = NULL, NULL);
 	return (line);
@@ -78,18 +80,18 @@ char	*read_line(char *line, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*line;
-	char		*new_line;
+	static char	*buff;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE < 0 || BUFFER_SIZE > INT_MAX)
 		return (NULL);
-	if (!line || (line && !ft_strchr(line, '\n')))
-		line = read_line(line, fd);
-	if (!line)
+	if (!buff || !ft_strchr(buff, SEPARATOR))
+		buff = read_next_line(buff, fd);
+	if (!buff)
 		return (NULL);
-	new_line = clean_line(line);
-	if (!new_line || ft_strlen(new_line) == 0)
-		return (free(line), line = NULL, free(new_line), NULL);
-	line = ready_for_next(line);
-	return (new_line);
+	line = form_next_line(buff);
+	if (!line || ft_strlen(line) == 0)
+		return (free(buff), buff = NULL, free(line), NULL);
+	clean_buff(&(buff));
+	return (line);
 }
