@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:49 by bhajili           #+#    #+#             */
-/*   Updated: 2024/10/22 08:41:05 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 14:54:05 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*get_next_line(int fd)
 {
 	static t_buff	buff[TOTAL_FD_COUNT];
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0 )
 		return (NULL);
 	if (NULL == buff[fd].ptr)
 	{
@@ -101,3 +101,17 @@ char	*get_next_line(int fd)
 	}
 	return (form_next_line(fd, &(buff[fd])));
 }
+
+//int main(void)
+//{
+//	int fd = open("multiple_line_no_nl", O_RDONLY);
+//	char *line;
+//	while (1)
+//	{
+//		line = get_next_line(fd);
+//		if (!line)
+//			break ;
+//		printf(":: %s\n", line);
+//		free(line);
+//	}
+//}

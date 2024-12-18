@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:58 by bhajili           #+#    #+#             */
-/*   Updated: 2024/10/22 08:47:15 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 14:55:49 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ft_strljoin(char const *s1, char const *s2, size_t len1, size_t len2)
 		return (NULL);
 	if (NULL == s1)
 	{
-		result = malloc(len2 + 1);
+		result = malloc(len2 + 2);
 		if (result)
 		{
 			ft_memcpy(result, s2, len2 + 1);
@@ -77,7 +77,7 @@ char	*ft_strljoin(char const *s1, char const *s2, size_t len1, size_t len2)
 	}
 	else if (NULL == s2)
 	{
-		result = malloc(len1 + 1);
+		result = malloc(len1 + 2);
 		if (result)
 		{
 			ft_memcpy(result, s1, len1 + 1);
@@ -86,7 +86,7 @@ char	*ft_strljoin(char const *s1, char const *s2, size_t len1, size_t len2)
 	}
 	else
 	{
-		result = malloc(len1 + len2 + 1);
+		result = malloc(len1 + len2 + 2);
 		if (result)
 		{
 			ft_memcpy(result, s1, len1);
