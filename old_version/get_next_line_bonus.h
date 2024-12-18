@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:38 by bhajili           #+#    #+#             */
-/*   Updated: 2024/10/22 08:46:53 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:07:56 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,18 @@
 # include <stdio.h> // DELETE
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	42
+#  define BUFFER_SIZE 10
+# endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 4096
+# endif
+
+# ifndef MAX_FD
+#  define MAX_FD OPEN_MAX
 # endif
 
 # define SEPARATOR		'\n'
-# define TOTAL_FD_COUNT	4096
 
 typedef struct s_buff
 {

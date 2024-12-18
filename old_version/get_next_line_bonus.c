@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:49 by bhajili           #+#    #+#             */
-/*   Updated: 2024/10/22 08:46:37 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:08:53 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ static char	*form_next_line(int fd, t_buff *buff)
 
 char	*get_next_line(int fd)
 {
-	static t_buff	buff[TOTAL_FD_COUNT];
+	static t_buff	buff[MAX_FD];
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
+	//if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0 )
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd > MAX_FD)
 		return (NULL);
 	if (NULL == buff[fd].ptr)
 	{
@@ -101,3 +102,10 @@ char	*get_next_line(int fd)
 	}
 	return (form_next_line(fd, &(buff[fd])));
 }
+
+//#include <stdio.h>
+//int	main()
+//{
+//	int	fd = 5;
+//	printf("get_next_line() returns: %s\n", get_next_line(fd));
+//}

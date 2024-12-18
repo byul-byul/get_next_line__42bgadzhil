@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:38 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/18 14:39:13 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:07:39 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,18 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	42
+#  define BUFFER_SIZE 10
+# endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 4096
+# endif
+
+# ifndef MAX_FD
+#  define MAX_FD 1
 # endif
 
 # define SEPARATOR		'\n'
-# define TOTAL_FD_COUNT	1
 
 typedef struct s_buff
 {

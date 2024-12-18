@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:49 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/18 14:54:05 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:09:11 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,31 +87,35 @@ static char	*form_next_line(int fd, t_buff *buff)
 
 char	*get_next_line(int fd)
 {
-	static t_buff	buff[TOTAL_FD_COUNT];
+	static t_buff	buff;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0 )
+	//if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0 )
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	if (NULL == buff[fd].ptr)
+	if (NULL == buff.ptr)
 	{
-		buff[fd].ptr = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (NULL == buff[fd].ptr)
+		buff.ptr = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		if (NULL == buff.ptr)
 			return (NULL);
-		buff[fd].ptr[BUFFER_SIZE] = '\0';
-		buffhandler(&(buff[fd]), -1);
+		buff.ptr[BUFFER_SIZE] = '\0';
+		buffhandler(&(buff), -1);
 	}
-	return (form_next_line(fd, &(buff[fd])));
+	return (form_next_line(fd, &(buff)));
 }
 
 //int main(void)
 //{
-//	int fd = open("multiple_line_no_nl", O_RDONLY);
+//	//int fd = open("multiple_line_no_nl", O_RDONLY);
+//	//fd = 25;
+//	int fd = 1000;
 //	char *line;
 //	while (1)
 //	{
 //		line = get_next_line(fd);
+
+//		printf(":: %s\n", line);
 //		if (!line)
 //			break ;
-//		printf(":: %s\n", line);
 //		free(line);
 //	}
 //}
