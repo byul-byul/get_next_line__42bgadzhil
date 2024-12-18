@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:49 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/18 13:55:35 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/18 16:59:22 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*get_next_line(int fd)
 	static char	*buff;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE < 0 || BUFFER_SIZE > INT_MAX)
+	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
 	if (!buff || !ft_strchr(buff, SEPARATOR))
 		buff = read_next_line(buff, fd);
